@@ -20,16 +20,19 @@ struct WelcomeScreen: View {
                 .foregroundColor(.black)
                 .font(.title)
             playButton
+            Spacer()
         }
     }
     
     var image: some View {
         Image("logo")
+            .resizable()
+            .frame(width: 200, height: 300)
     }
     
     var playButton: some View {
-        Button {
-            //TODO add action or turn this into navlink
+        NavigationLink {
+            GameView()
         } label: {
             HStack {
                 Text("Get moving!")
@@ -39,6 +42,7 @@ struct WelcomeScreen: View {
             .background(.black)
             .cornerRadius(16)
         }
+        
     }
 }
 

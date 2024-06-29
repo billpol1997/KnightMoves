@@ -14,7 +14,7 @@ struct GameView: View {
     let boardSize: CGFloat = 300
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       content
     }
     
     var content: some View {
