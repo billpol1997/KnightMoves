@@ -169,6 +169,7 @@ struct GameView: View {
     var resetBoardButton: some View {
         Button {
             withAnimation {
+                self.showPossiblePaths = false
                 self.viewModel.resetBoard()
             }
         } label: {

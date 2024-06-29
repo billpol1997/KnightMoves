@@ -9,10 +9,13 @@ import SwiftUI
 
 struct WelcomeScreen: View {
     @State var chessboardSize: Double = 0
-    
+    @StateObject var viewModel = WelcomeViewModel()
     var body: some View {
         content
-    } 
+            .onChange(of: chessboardSize) { newValue in
+                self.viewModel.setSize(size: newValue)
+            }
+    }
     
     var content: some View {
         VStack(spacing: 16) {

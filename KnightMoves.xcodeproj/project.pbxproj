@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A93143AF2C303C1A00007C07 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93143AE2C303C1A00007C07 /* WelcomeViewModel.swift */; };
 		A9E4EB0F2C2F794600B50318 /* KnightMovesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */; };
 		A9E4EB132C2F794700B50318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E4EB122C2F794700B50318 /* Assets.xcassets */; };
 		A9E4EB162C2F794700B50318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E4EB152C2F794700B50318 /* Preview Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A93143AE2C303C1A00007C07 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		A9E4EB0B2C2F794600B50318 /* KnightMoves.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KnightMoves.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightMovesApp.swift; sourceTree = "<group>"; };
 		A9E4EB122C2F794700B50318 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				A9E4EB402C2F80FE00B50318 /* GameViewModel.swift */,
+				A93143AE2C303C1A00007C07 /* WelcomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E4EB3F2C2F7C4E00B50318 /* ChessboardView.swift in Sources */,
+				A93143AF2C303C1A00007C07 /* WelcomeViewModel.swift in Sources */,
 				A9E4EB3B2C2F79C700B50318 /* WelcomeScreen.swift in Sources */,
 				A9E4EB3D2C2F7BF400B50318 /* GameView.swift in Sources */,
 				A9E4EB412C2F80FE00B50318 /* GameViewModel.swift in Sources */,
