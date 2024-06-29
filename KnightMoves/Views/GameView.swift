@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GameView: View {
+    //MARK: variables
     @StateObject private var viewModel: GameViewModel
     @Environment(\.dismiss) var dismiss
     @State var showPossiblePaths: Bool = false
@@ -15,19 +16,22 @@ struct GameView: View {
     @State var isPathImpossible: Bool = false
     let rows: Int
     let columns: Int
-    let boardSize: CGFloat = 400
+    let boardSize: CGFloat = 350
     
+    //MARK: Init
     init(viewModel: GameViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.rows = viewModel.chessboardSize
         self.columns = viewModel.chessboardSize
     }
     
+    //MARK: Body
     var body: some View {
         content
             .navigationBarBackButtonHidden()
     }
     
+    //MARK: SubViews
     var content: some View {
         VStack {
             dismissButton
@@ -60,6 +64,7 @@ struct GameView: View {
         .padding(.horizontal, 8)
     }
     
+    //MARK: Chessboard overlay
     var touchOverlay: some View {
         GeometryReader { proxy in
             ForEach(0..<rows, id: \.self) { row in
@@ -84,9 +89,10 @@ struct GameView: View {
             }
             displayPossiblePaths(proxy: proxy)
         }
-        .frame(width: boardSize, height: boardSize)
+        .frame(height: boardSize)
     }
     
+    //MARK: Knight pawn
     @ViewBuilder
     func attachKnightPawn(proxy: GeometryProxy, row: Int, column: Int, square: Square) -> some View {
         if viewModel.getStart() == square {
@@ -104,6 +110,7 @@ struct GameView: View {
         }
     }
     
+    //MARK: Paths
     @ViewBuilder
     func displayPossiblePaths(proxy: GeometryProxy) -> some View {
         if showPossiblePaths, let start = viewModel.getStart(), let finish = viewModel.getFinish(), start != Square(row: -1, column: -1), finish != Square(row: -1, column: -1) {
@@ -112,7 +119,7 @@ struct GameView: View {
             ForEach(paths, id: \.self) { path in
                 ForEach(path, id: \.self) { square in
                     Rectangle()
-                        .fill(Color.green.opacity(0.5))
+                        .fill(square == start || square == finish ? .clear : Color.green.opacity(0.8))
                         .frame(
                             width: proxy.size.width / CGFloat(columns),
                             height: proxy.size.height / CGFloat(rows)
@@ -146,12 +153,14 @@ struct GameView: View {
         }
     }
     
+    //MARK: ChessBoard
     var chessboard: some View {
         ChessboardView(rows: rows, columns: columns)
             .fill(.black)
             .frame(height: boardSize)
     }
     
+    //MARK: Buttons
     var moveButton: some View {
         Button {
             withAnimation {
@@ -159,7 +168,7 @@ struct GameView: View {
             }
         } label: {
             HStack {
-                Text(!showPossiblePaths ? "Show path!" : "Hide possible paths!")
+                Text(!showPossiblePaths ? self.viewModel.showPathText : self.viewModel.hidePathText)
                     .foregroundColor(.white)
                     .font(.body)
             }
@@ -172,7 +181,7 @@ struct GameView: View {
     @ViewBuilder
     var gameHelperLabel: some View {
         HStack {
-            Text(self.isPathImpossible ? "There is no path within 3 moves between these tiles ": (isSelectionOver ? "Now Press the button to calculate the best path within 3 moves of the Knight" : "Select tiles for start and finish!"))
+            Text(self.isPathImpossible ? self.viewModel.impossibleText : (isSelectionOver ? self.viewModel.pressButtonText : self.viewModel.selectTilesText))
                 .foregroundColor(.black)
                 .font(.title)
         }
@@ -212,11 +221,11 @@ struct GameView: View {
                     dismiss()
                 }
             } label: {
-                HStack(spacing: 2) {
+                HStack(spacing: 0) {
                     Image("arrow")
                         .resizable()
                         .foregroundColor(.white)
-                        .frame(width: 25, height: 25)
+                        .frame(width: 20, height: 20)
                     Text("Change size!")
                         .foregroundColor(.white)
                         .font(.footnote)
@@ -226,6 +235,11 @@ struct GameView: View {
                 .background(LinearGradient(colors: [.blue, .green], startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(8)
             }
+            
+            Text(self.viewModel.appTitle)
+                .foregroundColor(.black)
+                .font(.title)
+                .fontWeight(.semibold)
             Spacer()
         }
         .padding(.horizontal, 8)

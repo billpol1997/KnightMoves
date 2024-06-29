@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
+    //MARK: variables
     @State var chessboardSize: Double = 0
     @StateObject var viewModel: WelcomeViewModel
     
+    //MARK: Init
     init(viewModel: WelcomeViewModel) {
         self._viewModel = StateObject(wrappedValue: DIContainer.shared.getContainerSwinject().resolve(WelcomeViewModel.self)!)
     }
     
+    //MARK: Body
     var body: some View {
         content
             .onChange(of: chessboardSize) { newValue in
@@ -22,10 +25,11 @@ struct WelcomeScreen: View {
             }
     }
     
+    //MARK: SubViews
     var content: some View {
         VStack(spacing: 16) {
             image
-            Text("Knight moves")
+            Text(self.viewModel.appTitle)
                 .foregroundColor(.black)
                 .font(.title)
             chessboardSizeSlider
@@ -40,12 +44,13 @@ struct WelcomeScreen: View {
             .frame(width: 300, height: 500)
     }
     
+    //MARK: Button
     var playButton: some View {
         NavigationLink {
             GameView(viewModel: DIContainer.shared.getContainerSwinject().resolve(GameViewModel.self, argument: self.viewModel.chessboardSize)!)
         } label: {
             HStack {
-                Text("Get moving!")
+                Text(self.viewModel.playButtonText)
                     .foregroundColor(.white)
                     .font(.body)
             }
@@ -56,9 +61,10 @@ struct WelcomeScreen: View {
         
     }
     
+    //MARK: Slider
     var chessboardSizeSlider: some View {
         VStack(spacing: 8) {
-            Text("Please choose chessboard size!")
+            Text(self.viewModel.chooseSizeText)
             Slider(value: $chessboardSize, in: 6...16)
                 .tint(.black)
             Text("\(Int(chessboardSize))")

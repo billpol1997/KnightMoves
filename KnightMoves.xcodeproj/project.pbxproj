@@ -91,6 +91,14 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
+		A9DF0B7E2C30772E00177885 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
 		A9E4EB022C2F794600B50318 = {
 			isa = PBXGroup;
 			children = (
@@ -114,10 +122,10 @@
 		A9E4EB0D2C2F794600B50318 /* KnightMoves */ = {
 			isa = PBXGroup;
 			children = (
+				A9DF0B7E2C30772E00177885 /* Master */,
 				A93143BA2C303FE300007C07 /* DI */,
 				A9E4EB392C2F796A00B50318 /* ViewModels */,
 				A9E4EB382C2F796200B50318 /* Views */,
-				A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */,
 				A9E4EB122C2F794700B50318 /* Assets.xcassets */,
 				A9E4EB142C2F794700B50318 /* Preview Content */,
 			);

@@ -14,6 +14,7 @@ struct Square: Hashable {
 }
 
 final class GameViewModel: ObservableObject {
+    //MARK: variables
     @Published var selectedSquares: [Square] = []
     var chessboardSize: Int
     var isPathImpossible: Bool = false
@@ -23,10 +24,20 @@ final class GameViewModel: ObservableObject {
         (1, 2), (1, -2), (-1, 2), (-1, -2)
     ]
     
+    //MARK: Texts
+    let appTitle = "Knight moves"
+    let showPathText = "Show path!"
+    let hidePathText = "Hide possible paths!"
+    let impossibleText = "There is no path within 3 moves between these tiles!"
+    let pressButtonText = "Now Press the button to calculate the best path within 3 moves of the Knight!"
+    let selectTilesText = "Select tiles for start and finish!"
+    
+    //MARK: Init
     init(chessboardSize: Int) {
         self.chessboardSize = chessboardSize
     }
     
+    //MARK: Functions
     func toggleSquare(_ square: Square) {
         if let index = selectedSquares.firstIndex(of: square) {
             selectedSquares.remove(at: index)
@@ -38,6 +49,7 @@ final class GameViewModel: ObservableObject {
         }
     }
     
+    //MARK: Getters
     func getStart() -> Square? {
         return  selectedSquares.first
     }
@@ -46,6 +58,11 @@ final class GameViewModel: ObservableObject {
         return selectedSquares.count > 1 ? selectedSquares[1] : nil
     }
     
+    func getBestPath(paths: [[Square]]) -> [Square] {
+        return paths.min { $0.count < $1.count} ?? []
+    }
+    
+    //MARK: Path calculation
     func isWithinBounds(_ square: Square, rows: Int, columns: Int) -> Bool {
         return square.row >= 0 && square.row < rows && square.column >= 0 && square.column < columns
     }
@@ -79,14 +96,10 @@ final class GameViewModel: ObservableObject {
         return paths
     }
     
-    func getBestPath(paths: [[Square]]) -> [Square] {
-        return paths.min { $0.count < $1.count} ?? []
-    }
-    
+    //MARK: Reset
     func resetBoard() {
         self.selectedSquares = []
     }
-    
 }
 
 
