@@ -17,7 +17,7 @@ final class GameViewModel: ObservableObject {
     //MARK: variables
     @Published var selectedSquares: [Square] = []
     var chessboardSize: Int
-    var isPathImpossible: Bool = false
+    @Published var isPathImpossible: Bool = false
     let placeHolderSquare = Square(row: -1, column: -1)
     let knightMoves = [
         (2, 1), (2, -1), (-2, 1), (-2, -1),
@@ -91,14 +91,30 @@ final class GameViewModel: ObservableObject {
             }
         }
 
-        self.isPathImpossible = paths.isEmpty
+        self.setImpossblePath(paths: paths)
+        self.resetImpossiblePath()
         
         return paths
+    }
+    
+    func setImpossblePath(paths: [[Square]]) { // DispatchQueue to avoid publishing changes to view from background thread
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.isPathImpossible = paths.isEmpty
+        }
     }
     
     //MARK: Reset
     func resetBoard() {
         self.selectedSquares = []
+    }
+    
+    func resetImpossiblePath() {
+        guard self.isPathImpossible else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in // DispatchQueue to avoid publishing changes to view from background thread
+            guard let self else { return }
+            self.isPathImpossible = false
+        }
     }
 }
 

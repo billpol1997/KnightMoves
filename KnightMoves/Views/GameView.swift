@@ -194,6 +194,7 @@ struct GameView: View {
             withAnimation {
                 self.showPossiblePaths = false
                 self.viewModel.resetBoard()
+                self.isSelectionOver = false
             }
         } label: {
             HStack {
