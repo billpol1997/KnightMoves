@@ -27,7 +27,7 @@ struct WelcomeScreen: View {
     var image: some View {
         Image("logo")
             .resizable()
-            .frame(width: 200, height: 300)
+            .frame(width: 300, height: 500)
     }
     
     var playButton: some View {
@@ -39,6 +39,7 @@ struct WelcomeScreen: View {
                     .foregroundColor(.white)
                     .font(.body)
             }
+            .padding(16)
             .background(.black)
             .cornerRadius(16)
         }
