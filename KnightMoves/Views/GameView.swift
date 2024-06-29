@@ -10,6 +10,8 @@ import SwiftUI
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
     @State var showPossiblePaths: Bool = false
+    @State var isSelectionOver: Bool = false
+    @State var isPathImpossible: Bool = false
     let rows = 6
     let columns = 6
     let boardSize: CGFloat = 400
@@ -21,8 +23,16 @@ struct GameView: View {
     
     var content: some View {
         VStack(spacing: 32) {
+            gameHelperLabel
             field
-            moveButton
+            gameButtons
+        }
+        .onChange(of: self.viewModel.isPathImpossible) { newValue in
+            withAnimation {
+                self.isPathImpossible = newValue
+                guard newValue else { return }
+                self.showPossiblePaths = false
+            }
         }
     }
     
@@ -54,6 +64,7 @@ struct GameView: View {
                         )
                         .onTapGesture {
                             viewModel.toggleSquare(square)
+                            isSelectionOver = viewModel.getStart() != nil && viewModel.getFinish() != nil
                         }
                     attachKnightPawn(proxy: proxy, row: row, column: column, square: square)
                 }
@@ -142,6 +153,40 @@ struct GameView: View {
             .padding(16)
             .background(.black)
             .cornerRadius(24)
+        }
+    }
+    
+    @ViewBuilder
+    var gameHelperLabel: some View {
+        HStack {
+            Text(self.isPathImpossible ? "There is no path within 3 moves between these tiles ": (isSelectionOver ? "Now Press the button to calculate the best path within 3 moves of the Knight" : "Select tiles for start and finish!"))
+                .foregroundColor(.black)
+                .font(.title)
+        }
+        .padding(.horizontal, 8)
+    }
+    
+    var resetBoardButton: some View {
+        Button {
+            withAnimation {
+                self.viewModel.resetBoard()
+            }
+        } label: {
+            HStack {
+                Text("Rest chessboard")
+                    .foregroundColor(.white)
+                    .font(.body)
+            }
+            .padding(16)
+            .background(.red.opacity(0.8))
+            .cornerRadius(24)
+        }
+    }
+    
+    var gameButtons: some View {
+        HStack(spacing: 16) {
+            resetBoardButton
+            moveButton
         }
     }
     

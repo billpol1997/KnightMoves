@@ -15,6 +15,7 @@ struct Square: Hashable {
 
 final class GameViewModel: ObservableObject {
     @Published var selectedSquares: [Square] = []
+    var isPathImpossible: Bool = false
     let placeHolderSquare = Square(row: -1, column: -1)
     let knightMoves = [
         (2, 1), (2, -1), (-2, 1), (-2, -1),
@@ -68,12 +69,18 @@ final class GameViewModel: ObservableObject {
                 }
             }
         }
+
+        self.isPathImpossible = paths.isEmpty
         
         return paths
     }
     
     func getBestPath(paths: [[Square]]) -> [Square] {
         return paths.min { $0.count < $1.count} ?? []
+    }
+    
+    func resetBoard() {
+        self.selectedSquares = []
     }
     
 }

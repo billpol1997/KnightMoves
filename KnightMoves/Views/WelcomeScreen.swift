@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
+    @State var chessboardSize: Double = 0
     
     var body: some View {
         content
@@ -19,6 +20,7 @@ struct WelcomeScreen: View {
             Text("Knight moves")
                 .foregroundColor(.black)
                 .font(.title)
+            chessboardSizeSlider
             playButton
             Spacer()
         }
@@ -44,6 +46,18 @@ struct WelcomeScreen: View {
             .cornerRadius(16)
         }
         
+    }
+    
+    var chessboardSizeSlider: some View {
+        VStack(spacing: 8) {
+            Text("Please choose chessboard size!")
+            Slider(value: $chessboardSize, in: 6...16)
+                .tint(.black)
+            Text("\(Int(chessboardSize))")
+        }
+        .foregroundColor(.black)
+        .font(.body)
+        .padding(.horizontal, 16)
     }
 }
 
