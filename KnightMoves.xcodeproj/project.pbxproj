@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A93143AF2C303C1A00007C07 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93143AE2C303C1A00007C07 /* WelcomeViewModel.swift */; };
+		A93143BC2C30400100007C07 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93143BB2C30400100007C07 /* DIContainer.swift */; };
+		A93143C32C30479E00007C07 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A93143C22C30479E00007C07 /* Swinject */; };
 		A9E4EB0F2C2F794600B50318 /* KnightMovesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */; };
 		A9E4EB132C2F794700B50318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E4EB122C2F794700B50318 /* Assets.xcassets */; };
 		A9E4EB162C2F794700B50318 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E4EB152C2F794700B50318 /* Preview Assets.xcassets */; };
@@ -39,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		A93143AE2C303C1A00007C07 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		A93143BB2C30400100007C07 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		A9E4EB0B2C2F794600B50318 /* KnightMoves.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KnightMoves.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightMovesApp.swift; sourceTree = "<group>"; };
 		A9E4EB122C2F794700B50318 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A93143C32C30479E00007C07 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A93143BA2C303FE300007C07 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				A93143BB2C30400100007C07 /* DIContainer.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 		A9E4EB022C2F794600B50318 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +114,7 @@
 		A9E4EB0D2C2F794600B50318 /* KnightMoves */ = {
 			isa = PBXGroup;
 			children = (
+				A93143BA2C303FE300007C07 /* DI */,
 				A9E4EB392C2F796A00B50318 /* ViewModels */,
 				A9E4EB382C2F796200B50318 /* Views */,
 				A9E4EB0E2C2F794600B50318 /* KnightMovesApp.swift */,
@@ -171,6 +184,9 @@
 			dependencies = (
 			);
 			name = KnightMoves;
+			packageProductDependencies = (
+				A93143C22C30479E00007C07 /* Swinject */,
+			);
 			productName = KnightMoves;
 			productReference = A9E4EB0B2C2F794600B50318 /* KnightMoves.app */;
 			productType = "com.apple.product-type.application";
@@ -243,6 +259,9 @@
 				Base,
 			);
 			mainGroup = A9E4EB022C2F794600B50318;
+			packageReferences = (
+				A93143C12C30479E00007C07 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = A9E4EB0C2C2F794600B50318 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -285,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A93143BC2C30400100007C07 /* DIContainer.swift in Sources */,
 				A9E4EB3F2C2F7C4E00B50318 /* ChessboardView.swift in Sources */,
 				A93143AF2C303C1A00007C07 /* WelcomeViewModel.swift in Sources */,
 				A9E4EB3B2C2F79C700B50318 /* WelcomeScreen.swift in Sources */,
@@ -620,6 +640,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A93143C12C30479E00007C07 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A93143C22C30479E00007C07 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A93143C12C30479E00007C07 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A9E4EB032C2F794600B50318 /* Project object */;
 }

@@ -9,7 +9,12 @@ import SwiftUI
 
 struct WelcomeScreen: View {
     @State var chessboardSize: Double = 0
-    @StateObject var viewModel = WelcomeViewModel()
+    @StateObject var viewModel: WelcomeViewModel
+    
+    init(viewModel: WelcomeViewModel) {
+        self._viewModel = StateObject(wrappedValue: DIContainer.shared.getContainerSwinject().resolve(WelcomeViewModel.self)!)
+    }
+    
     var body: some View {
         content
             .onChange(of: chessboardSize) { newValue in
@@ -37,7 +42,7 @@ struct WelcomeScreen: View {
     
     var playButton: some View {
         NavigationLink {
-            GameView()
+            GameView(viewModel: DIContainer.shared.getContainerSwinject().resolve(GameViewModel.self, argument: self.viewModel.chessboardSize)!)
         } label: {
             HStack {
                 Text("Get moving!")
@@ -62,8 +67,4 @@ struct WelcomeScreen: View {
         .font(.body)
         .padding(.horizontal, 16)
     }
-}
-
-#Preview {
-    WelcomeScreen()
 }

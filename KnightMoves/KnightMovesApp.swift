@@ -12,7 +12,7 @@ struct KnightMovesApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                WelcomeScreen()
+                DIContainer.shared.getContainerSwinject().resolve(WelcomeScreen.self)!
             }
         }
     }

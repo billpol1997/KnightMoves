@@ -15,6 +15,7 @@ struct Square: Hashable {
 
 final class GameViewModel: ObservableObject {
     @Published var selectedSquares: [Square] = []
+    var chessboardSize: Int
     var isPathImpossible: Bool = false
     let placeHolderSquare = Square(row: -1, column: -1)
     let knightMoves = [
@@ -22,6 +23,9 @@ final class GameViewModel: ObservableObject {
         (1, 2), (1, -2), (-1, 2), (-1, -2)
     ]
     
+    init(chessboardSize: Int) {
+        self.chessboardSize = chessboardSize
+    }
     
     func toggleSquare(_ square: Square) {
         if let index = selectedSquares.firstIndex(of: square) {
@@ -47,7 +51,7 @@ final class GameViewModel: ObservableObject {
     }
     
     func knightPaths(start: Square, end: Square, maxMoves: Int) -> [[Square]] {
-        guard isWithinBounds(start, rows: 6, columns: 6) && isWithinBounds(end, rows: 6, columns: 6) else { return [] }
+        guard isWithinBounds(start, rows: chessboardSize, columns: chessboardSize) && isWithinBounds(end, rows: chessboardSize, columns: chessboardSize) else { return [] }
         
         var paths: [[Square]] = []
         var queue: [(Square, [Square], Int)] = [(start, [start], 0)]
@@ -63,7 +67,7 @@ final class GameViewModel: ObservableObject {
             if moves < maxMoves {
                 for move in knightMoves {
                     let nextSquare = Square(row: current.row + move.0, column: current.column + move.1)
-                    if isWithinBounds(nextSquare, rows: 6, columns: 6) && !path.contains(nextSquare) {
+                    if isWithinBounds(nextSquare, rows: chessboardSize, columns: chessboardSize) && !path.contains(nextSquare) {
                         queue.append((nextSquare, path + [nextSquare], moves + 1))
                     }
                 }

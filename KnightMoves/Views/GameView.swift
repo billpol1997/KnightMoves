@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var viewModel = GameViewModel()
+    @StateObject private var viewModel: GameViewModel
+    @Environment(\.dismiss) var dismiss
     @State var showPossiblePaths: Bool = false
     @State var isSelectionOver: Bool = false
     @State var isPathImpossible: Bool = false
-    let rows = 6
-    let columns = 6
+    let rows: Int
+    let columns: Int
     let boardSize: CGFloat = 400
+    
+    init(viewModel: GameViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.rows = viewModel.chessboardSize
+        self.columns = viewModel.chessboardSize
+    }
     
     var body: some View {
         content
@@ -22,10 +29,16 @@ struct GameView: View {
     }
     
     var content: some View {
-        VStack(spacing: 32) {
+        VStack {
+            dismissButton
+                .padding(.top, 16)
+            Spacer()
             gameHelperLabel
+                .padding(.bottom, 8)
             field
+            Spacer()
             gameButtons
+                .padding(.bottom, 16)
         }
         .onChange(of: self.viewModel.isPathImpossible) { newValue in
             withAnimation {
@@ -163,6 +176,7 @@ struct GameView: View {
                 .foregroundColor(.black)
                 .font(.title)
         }
+        .frame(height: 200)
         .padding(.horizontal, 8)
     }
     
@@ -189,6 +203,32 @@ struct GameView: View {
             resetBoardButton
             moveButton
         }
+    }
+    
+    var dismissButton: some View {
+        HStack {
+            Button {
+                withAnimation {
+                    dismiss()
+                }
+            } label: {
+                HStack(spacing: 2) {
+                    Image("arrow")
+                        .resizable()
+                        .foregroundColor(.white)
+                        .frame(width: 25, height: 25)
+                    Text("Change size!")
+                        .foregroundColor(.white)
+                        .font(.footnote)
+                }
+                .padding(.vertical, 8)
+                .padding(.trailing, 8)
+                .background(LinearGradient(colors: [.blue, .green], startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(8)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 8)
     }
     
 }
