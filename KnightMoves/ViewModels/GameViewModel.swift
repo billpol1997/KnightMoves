@@ -19,6 +19,7 @@ final class GameViewModel: ObservableObject {
     var chessboardSize: Int
     @Published var isPathImpossible: Bool = false
     let placeHolderSquare = Square(row: -1, column: -1)
+    let maxMoves: Int = 3
     let knightMoves = [
         (2, 1), (2, -1), (-2, 1), (-2, -1),
         (1, 2), (1, -2), (-1, 2), (-1, -2)

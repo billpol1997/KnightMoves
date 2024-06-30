@@ -114,7 +114,7 @@ struct GameView: View {
     @ViewBuilder
     func displayPossiblePaths(proxy: GeometryProxy) -> some View {
         if showPossiblePaths, let start = viewModel.getStart(), let finish = viewModel.getFinish(), start != Square(row: -1, column: -1), finish != Square(row: -1, column: -1) {
-            let paths = viewModel.knightPaths(start: start, end: finish, maxMoves: 3)
+            let paths = viewModel.knightPaths(start: start, end: finish, maxMoves: self.viewModel.maxMoves)
             let bestPath = viewModel.getBestPath(paths: paths)
             ForEach(paths, id: \.self) { path in
                 ForEach(path, id: \.self) { square in
