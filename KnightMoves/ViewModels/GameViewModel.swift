@@ -68,6 +68,8 @@ final class GameViewModel: ObservableObject {
         return square.row >= 0 && square.row < rows && square.column >= 0 && square.column < columns
     }
     
+    
+    //this function uses BFS, its computationally expensive for large values of maxMoves, but it is manageable for the desirable 3 moves , its complexity is O(8^maxMoves) where 8 is the max possible moves from each square for a knight in chess
     func knightPaths(start: Square, end: Square, maxMoves: Int) -> [[Square]] {
         guard isWithinBounds(start, rows: chessboardSize, columns: chessboardSize) && isWithinBounds(end, rows: chessboardSize, columns: chessboardSize) else { return [] }
         
