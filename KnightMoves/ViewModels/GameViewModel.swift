@@ -77,7 +77,7 @@ final class GameViewModel: ObservableObject {
         while !queue.isEmpty {
             let (current, path, moves) = queue.removeFirst()
             
-            if current == end {
+            if current == end && moves <= maxMoves {
                 paths.append(path)
                 continue
             }
@@ -91,7 +91,7 @@ final class GameViewModel: ObservableObject {
                 }
             }
         }
-
+        
         self.setImpossblePath(paths: paths)
         self.resetImpossiblePath()
         
