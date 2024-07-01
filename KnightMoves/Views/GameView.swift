@@ -19,10 +19,10 @@ struct GameView: View {
     let boardSize: CGFloat = 350
     
     //MARK: Init
-    init(viewModel: GameViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-        self.rows = viewModel.chessboardSize
-        self.columns = viewModel.chessboardSize
+    init(size: Int) {
+        self._viewModel = StateObject(wrappedValue: DIContainer.shared.getContainerSwinject().resolve(GameViewModel.self, argument: size)!)
+        self.rows = size
+        self.columns = size
     }
     
     //MARK: Body

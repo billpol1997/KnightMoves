@@ -47,7 +47,7 @@ struct WelcomeScreen: View {
     //MARK: Button
     var playButton: some View {
         NavigationLink {
-            GameView(viewModel: DIContainer.shared.getContainerSwinject().resolve(GameViewModel.self, argument: self.viewModel.chessboardSize)!)
+            DIContainer.shared.getContainerSwinject().resolve(GameView.self, argument: self.viewModel.chessboardSize)!
         } label: {
             HStack {
                 Text(self.viewModel.playButtonText)

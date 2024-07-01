@@ -26,8 +26,8 @@ final class DIContainer: SwinjectInterface {
             WelcomeViewModel()
         }
         
-        container.register(GameView.self) { r in
-            GameView(viewModel: r.resolve(GameViewModel.self)!)
+        container.register(GameView.self) { r, size in
+            GameView(size: size)
         }
         
         container.register(GameViewModel.self) { r, size in
